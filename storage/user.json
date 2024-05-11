@@ -5,5 +5,12 @@
         "email": "root@gmail.com",
         "password": "$2y$10$FjqGUXXNtb.qum9c8ZJ\/JO0nnaDDfg\/MsXNlZtl928mGVJwfeetOe",
         "user": "manager"
+    },
+    {
+        "id ": 2,
+        "username": "aliabdulbaqi@gmail.com",
+        "email": "aliabdulbaqi@gmail.com",
+        "password": "$2y$10$Tep\/MAGl2Bq0UdUSMyadhux\/I67rZi2RBgkLTU3OmocX3ir4JiLdq",
+        "user": "admin"
     }
 ]

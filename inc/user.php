@@ -1,31 +1,11 @@
 <?php
 session_start();
-// function to get all Data as array
-function getAllData($file)
-{
-    $allData = json_decode(file_get_contents($file), true);
-    return $allData;
-}
-
-
-// to check if the user is exist or not 
-function isUserExist($username)
-{
-    $allData = getAllData("storage/user.json");
-    foreach ($allData as $one) {
-        if ($one['username'] == $username) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
+include "validate.php";
 
 // function that return the user and its data;
 function getUser($username)
 {
-    $allData = getAllData("storage/user.json");
+    $allData = getAllData("../storage/user.json");
     foreach ($allData as $one) {
         if ($one['username'] == $username) {
             return $one;
@@ -34,6 +14,7 @@ function getUser($username)
         }
     }
 }
+
 
 // fucntion to login
 function login($username, $password)
@@ -45,14 +26,30 @@ function login($username, $password)
             $_SESSION['user'] = $user['user'];
             $_SESSION['username'] = $username;
             return true;
-        } else {
-            return "password is wrong";
         }
+            return 2;
+        
     } else {
         return false;
     }
 }
-
+function clearInput($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+function signUp($username, $email, $password, $user = "admin")
+{
+    $username = clearInput($username);
+    $username = clearInput($email);
+    $users = getAllData("storage/user.json");
+    $id = getLastId("storage/user.json") + 1;
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $users[] = ['id ' => $id, 'username' => $username, 'email' => $email, 'password' => $password, "user" => $user];
+    file_put_contents("storage/user.json", json_encode($users, JSON_PRETTY_PRINT));
+}
 
 function logout()
 {
